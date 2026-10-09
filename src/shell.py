@@ -3,6 +3,7 @@
 from enum import Enum
 
 from src.errors import ShellError, validate_count
+from src.vfs import VirtualFileSystem
 
 
 class CommandStatus(Enum):
@@ -16,9 +17,10 @@ class CommandStatus(Enum):
 class Shell:
     """Состояние сеанса и диспетчер команд."""
 
-    def __init__(self, vfs_name="default"):
+    def __init__(self, vfs_name="default", vfs=None):
         """Создаёт сеанс с именем виртуальной файловой системы."""
-        self.vfs_name = vfs_name
+        self.vfs = vfs if vfs is not None else VirtualFileSystem()
+        self.vfs_name = self.vfs.name if vfs is not None else vfs_name
 
     def prompt(self):
         """Возвращает приглашение с именем VFS."""
@@ -41,6 +43,11 @@ class Shell:
 
     def _dispatch(self, command, arguments):
         """Вызывает доступную команду или сообщает о неизвестной."""
+        if command == "vfs-info":
+            validate_count(arguments, (0,))
+            print(f"VFS: {self.vfs.name}")
+            print(f"SHA-256: {self.vfs.fingerprint()}")
+            return
         if command not in ("ls", "cd"):
             raise ShellError(f"unknown command: {command}")
         validate_count(arguments, (0, 1))

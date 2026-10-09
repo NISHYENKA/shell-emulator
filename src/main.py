@@ -1,11 +1,11 @@
 """Точка входа консольного эмулятора."""
 
-from pathlib import Path
-
 from src.config import parse_arguments
+from src.errors import ShellError
 from src.parser import parse_command
 from src.shell import CommandStatus, Shell
 from src.startup import run_startup
+from src.vfs import VirtualFileSystem
 
 
 def run_interactive(shell):
@@ -25,7 +25,14 @@ def main():
     config = parse_arguments()
     print(f"VFS: {config.vfs}")
     print(f"Script: {config.script}")
-    shell = Shell(Path(config.vfs).name if config.vfs else "default")
+    vfs = VirtualFileSystem()
+    try:
+        if config.vfs:
+            vfs.load(config.vfs)
+    except ShellError as error:
+        print(f"error: {error}")
+        return 1
+    shell = Shell(vfs=vfs)
     if config.script:
         status = run_startup(config.script, shell)
         if status == CommandStatus.error:

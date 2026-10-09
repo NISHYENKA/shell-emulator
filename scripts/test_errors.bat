@@ -7,5 +7,11 @@ call run.bat --vfs vfs/several --script scripts/error_arguments.txt <nul
 if not errorlevel 1 exit /b 1
 call run.bat --vfs vfs/several --script scripts/error_exit.txt <nul
 if not errorlevel 1 exit /b 1
+call run.bat --vfs vfs/several --script scripts/error_vfs_info.txt <nul
+if not errorlevel 1 exit /b 1
+call run.bat --vfs vfs/missing <nul
+if not errorlevel 1 exit /b 1
+call run.bat --vfs README.md <nul
+if not errorlevel 1 exit /b 1
 popd
 exit /b 0
