@@ -14,4 +14,13 @@ date -u
 cal
 cal 2026
 cal 10 2026
+mkdir work
+mkdir -p work/a/b
+mkdir -p work/a/b
+cp home/hello.txt work/copy.txt
+cp home/hello.txt work
+cp home/note.txt work/copy.txt
+cp -r home work/tree
+ls work
+vfs-info
 exit

@@ -1,0 +1,2 @@
+cp -r home home/inside
+never_run

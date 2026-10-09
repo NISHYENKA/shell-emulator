@@ -4,6 +4,7 @@ import calendar
 from datetime import datetime, timezone
 
 from src.errors import ShellError, validate_count
+from src.mutations import copy_command, mkdir_command
 
 
 min_year = 1
@@ -82,7 +83,8 @@ def run_command(command, arguments, vfs):
     """Выбирает основную команду по имени."""
     handlers = {"ls": list_command, "cd": change_directory,
                 "pwd": print_directory, "date": date_command,
-                "cal": calendar_command}
+                "cal": calendar_command, "cp": copy_command,
+                "mkdir": mkdir_command}
     if command not in handlers:
         raise ShellError(f"unknown command: {command}")
     handlers[command](arguments, vfs)
