@@ -2,6 +2,7 @@
 
 from enum import Enum
 
+from src.commands import run_command
 from src.errors import ShellError, validate_count
 from src.vfs import VirtualFileSystem
 
@@ -48,9 +49,4 @@ class Shell:
             print(f"VFS: {self.vfs.name}")
             print(f"SHA-256: {self.vfs.fingerprint()}")
             return
-        if command not in ("ls", "cd"):
-            raise ShellError(f"unknown command: {command}")
-        validate_count(arguments, (0, 1))
-        if arguments and arguments[0].startswith("-"):
-            raise ShellError("unsupported option")
-        print(command, *arguments)
+        run_command(command, arguments, self.vfs)

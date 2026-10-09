@@ -1,4 +1,9 @@
 vfs-info
 ls
 cd .
+cd a/b/c
+pwd
+ls
+cd ../../..
+pwd
 exit

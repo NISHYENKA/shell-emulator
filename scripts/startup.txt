@@ -1,6 +1,17 @@
+vfs-info
 ls
 ls home
+cd home
+pwd
+ls hello.txt
 cd .
+cd ..
+cd /home
 cd
-vfs-info
+pwd
+date
+date -u
+cal
+cal 2026
+cal 10 2026
 exit

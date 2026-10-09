@@ -52,12 +52,11 @@ class TestShell(unittest.TestCase):
                 self.assertEqual(status, CommandStatus.error)
                 self.assertIn("error:", output)
 
-    def test_stubs(self):
-        """Заглушки печатают команду и аргументы."""
-        self.assertEqual(execute(Shell(), "ls docs"),
-                         (CommandStatus.success, "ls docs\n"))
-        self.assertEqual(execute(Shell(), "cd docs"),
-                         (CommandStatus.success, "cd docs\n"))
+    def test_empty_vfs_commands(self):
+        """Реальные команды работают с пустым корнем по умолчанию."""
+        self.assertEqual(execute(Shell(), "ls"), (CommandStatus.success, ""))
+        self.assertEqual(execute(Shell(), "cd ."),
+                         (CommandStatus.success, ""))
 
     def test_repl(self):
         """REPL продолжает работу после ошибки и завершает по exit."""

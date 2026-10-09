@@ -27,12 +27,6 @@ def run_script(content):
 class TestStartup(unittest.TestCase):
     """Проверяет штатные и ошибочные пути startup."""
 
-    def test_demo_stub_modes(self):
-        """Startup показывает все режимы заглушек текущего этапа."""
-        lines = Path("scripts/startup.txt").read_text().splitlines()
-        for command in ("ls", "ls home", "cd", "cd .", "exit"):
-            self.assertIn(command, lines)
-
     def test_parameters(self):
         """Пути с пробелами и значения по умолчанию сохраняются."""
         config = parse_arguments(["--vfs", "my dir", "--script", "my file"])
